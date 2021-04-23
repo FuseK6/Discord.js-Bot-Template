@@ -9,11 +9,6 @@ module.exports = class CommandManager extends Manager {
 
         // Handlers
         this.handler = new CommandHandler(client, this);
-
-        // Other
-        this.types = ['Information','Moderation','Config','Utilities','Economy'];
-        this.cooldowns = new Map();
-        this.client = client
     }
 
     start() {
