@@ -23,4 +23,8 @@ module.exports = class CommandManager extends Manager {
         if (message.author.bot || !message.content.startsWith(this.client.prefix)) return false;
         else return true;
     }
+
+    resolveCommand(str) {
+        return this.cache.get(str) || this.cache.get(this.client.aliases.get(str));
+    }
 }

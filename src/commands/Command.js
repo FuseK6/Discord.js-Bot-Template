@@ -13,7 +13,7 @@ module.exports = class Command {
         this.usage = options.usage || options.name;
         this.description = options.description || null;
         this.details = options.details || null;
-        this.type = options.type || this.manager.types.MISC;
+        this.type = options.type || 'Unknown'
         this.clientPermissions = options.clientPermissions || ['SEND_MESSAGES', 'EMBED_LINKS'];
         this.userPermissions = options.userPermissions || null;
         this.examples = options.examples || null;
@@ -35,6 +35,14 @@ module.exports = class Command {
     run(message, args, data) {
         throw new Error(`The ${this.name} command has no run() method`);
     }
+
+    async resolveMember(search, guild) {
+        let member = guild.members.cache.get(search) || this.getMemberFromMention(search) || guild.members.cache.find(u => this.getUserName(u).toLowerCase() === search.toLowerCase());
+
+        if (!member) member = await this.client.users.fetch(search);
+
+        return member;
+    } 
 
     /**
      * Gets member from mention
@@ -96,8 +104,8 @@ module.exports = class Command {
      */
     checkUserPermissions(message, ownerOverride = true) {
         if (!this.ownerOnly && !this.userPermissions) return true;
-        if (ownerOverride && client.isOwner(message.author)) return true;
-        if (this.ownerOnly && !client.isOwner(message.author)) {
+        if (ownerOverride && this.client.isOwner(message.author)) return true;
+        if (this.ownerOnly && !this.client.isOwner(message.author)) {
             return false;
         }
 
@@ -207,15 +215,6 @@ module.exports = class Command {
         if (options.guildOnly && typeof options.guildOnly !== 'boolean')
             throw new TypeError('Command guildOnly is not a boolean');
 
-        if (options.guildOwnerOnly && typeof options.guildOwnerOnly !== 'boolean')
-            throw new TypeError('Command guildOwnerOnly is not a boolean');
-
-        if (options.argsCount && isNaN(options.argsCount))
-            throw new TypeError('Command argsCount is not a number');
-
-        if (options.globalPermsRequired && isNaN(options.globalPermsRequired))
-            throw new TypeError('Command globalPermsRequired is not a number');
-
         if (options.reloadable && typeof options.reloadable !== 'boolean')
             throw new TypeError('Command reloadable is not a boolean');
     }
@@ -228,5 +227,23 @@ module.exports = class Command {
      */
     isGuildOwner(guild, user) {
         return guild.ownerID === user.id;
+    }
+
+    isBot(user) {
+        const botState = user.bot || user.user.bot;
+
+        return botState;
+    }
+
+    getTag(user) {
+        const tag = user.tag || user.user.tag;
+
+        return tag;
+    }
+
+    getUserName(user) {
+        const username = user.username || user.user.username;
+
+        return username;
     }
 }

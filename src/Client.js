@@ -16,6 +16,7 @@ module.exports = class Bot extends Client {
         this.token = config.token;
         this.owner = config.owner;
         this.prefix = config.prefix;
+        this.util = require('./Util.js');
 
         // Helpers & Managers
         this.Log = new Logger();
@@ -31,6 +32,13 @@ module.exports = class Bot extends Client {
         this.events.start();
 
         this.login(this.token);
+    }
+
+    isOwner(member) {
+        if (typeof(this.owner) === 'string') return this.owner === member.id;
+        if (this.owner instanceof Array) return this.owner.includes(member.id);
+        if (this.owner instanceof Set) return this.owner.has(member.id);
+        throw new Error('Client owner has invalid value');
     }
 
     /**
