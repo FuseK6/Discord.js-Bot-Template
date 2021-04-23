@@ -26,10 +26,10 @@ If all went well, you should see in the terminal information about loading comma
 
 ### For the begginers
 
-Discord.js Documentation - 
-Some good tutorials - [Playlist](https://www.youtube.com/playlist?list=PLaxxQQak6D_fxb9_-YsmRwxfw5PH9xALe), [Playlist](https://www.youtube.com/watch?v=d6GHblKh3XA&list=PLL9m5KjtRdzAubBDuYU6Rq7_OMvoS9zA7)
-Discord.js support server - [Invite](https://discord.gg/djs)
-JavaScript Documentation - [Link](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
+Discord.js Documentation - [Link](https://discord.js.org/#/docs/main/stable/general/welcome);
+Some good tutorials - [Playlist](https://www.youtube.com/playlist?list=PLaxxQQak6D_fxb9_-YsmRwxfw5PH9xALe), [Playlist](https://www.youtube.com/watch?v=d6GHblKh3XA&list=PLL9m5KjtRdzAubBDuYU6Rq7_OMvoS9zA7);
+Discord.js support server - [Invite](https://discord.gg/djs);
+JavaScript Documentation - [Link](https://developer.mozilla.org/en-US/docs/Web/JavaScript);
 
 ### Update info
 
